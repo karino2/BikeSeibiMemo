@@ -38,6 +38,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -231,7 +232,7 @@ fun MyDatePicker(initDate: Date, onDismiss: ()->Unit, onSelected: (Date)->Unit)
 
 @Composable
 fun NumButton(num: Int, onClick: (Int)->Unit, modifier: Modifier) {
-    Button(modifier = modifier.fillMaxHeight(), onClick = { onClick(num) }) {
+    Button(modifier = modifier.fillMaxHeight().padding(2.dp), shape= RoundedCornerShape(5.dp),  onClick = { onClick(num) }) {
         Text(num.toString())
     }
 }
@@ -276,6 +277,7 @@ fun CategoryPicker(onDismiss: ()->Unit, onSelected: (Category)->Unit) {
 
 @Composable
 fun NumberPicker(isFloat: Boolean, initVal: String, onDismiss: ()->Unit, onSelected: (String)->Unit) {
+    val buttonShape = RoundedCornerShape(5.dp)
     Dialog(onDismissRequest = { onDismiss() }) {
         Card(
             modifier = Modifier
@@ -315,7 +317,10 @@ fun NumberPicker(isFloat: Boolean, initVal: String, onDismiss: ()->Unit, onSelec
                     if (isFloat) {
                         Button(modifier= Modifier
                             .weight(1.0F)
-                            .fillMaxHeight(), onClick= {
+                            .padding(2.dp)
+                            .fillMaxHeight(),
+                            shape = buttonShape,
+                            onClick= {
                             if(num.value != "" && !num.value.contains('.')) {
                                 num.value = num.value + "."
                             }
@@ -327,7 +332,10 @@ fun NumberPicker(isFloat: Boolean, initVal: String, onDismiss: ()->Unit, onSelec
 
                     Button(modifier= Modifier
                         .weight(bsweight)
-                        .fillMaxHeight(), onClick= {
+                        .padding(2.dp)
+                        .fillMaxHeight(),
+                        shape = buttonShape,
+                        onClick= {
                         if(num.value != "") {
                             num.value = num.value.substring(0, num.value.length-1)
                         }
@@ -363,7 +371,7 @@ fun NumberPicker(isFloat: Boolean, initVal: String, onDismiss: ()->Unit, onSelec
 fun ItemRow(title: String, value: String, onClick: ()->Unit) {
     Row {
         Text(title, modifier=Modifier.width(100.dp).align(Alignment.CenterVertically))
-        OutlinedButton(onClick = onClick) {
+        OutlinedButton(onClick = onClick, shape= RectangleShape) {
             Text(value)
         }
     }
