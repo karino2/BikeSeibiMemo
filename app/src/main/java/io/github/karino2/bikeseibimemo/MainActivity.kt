@@ -114,6 +114,10 @@ class MainActivity : ComponentActivity() {
         Intent(this, ListActivity::class.java).also { startActivity(it) }
     }
 
+    private fun gotoMileageActivity() {
+        Intent(this, MileageActivity::class.java).also { startActivity(it) }
+    }
+
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -152,6 +156,9 @@ class MainActivity : ComponentActivity() {
                             }
                             Button(onClick = { gotoListActivity() }) {
                                 Text("一覧")
+                            }
+                            Button(onClick = { gotoMileageActivity() }) {
+                                Text("燃費")
                             }
                         })
                     }

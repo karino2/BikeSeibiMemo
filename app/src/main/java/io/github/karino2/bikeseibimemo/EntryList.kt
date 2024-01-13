@@ -100,6 +100,9 @@ data class Entry(val lineNum: Int?, val category: Category, val date: Date, val 
     val displayDateOnly: String
         get() =  android.text.format.DateFormat.format("M/d", date).toString()
 
+    val displayYearDate: String
+        get() =  android.text.format.DateFormat.format("yyyy/M/d", date).toString()
+
     val displayLiter: String
         get() {
             return liter?.let { "%.2f".format(it) } ?: ""
@@ -188,9 +191,19 @@ class EntryList(val raw: List<Entry>) {
 
     fun lastCategoryBy(category: Category) = fromLatest().dropWhile{ it.category != category }.firstOrNull()
 
-    fun secondLastGas() = fromLatest().filter{ it.category == Category.GAS }.drop(1).firstOrNull()
+    fun secondLastGas() = gasFromLatest().drop(1).firstOrNull()
 
     fun fromLatest() = raw.reversed()
+
+    // list of (cur, prev) of GAS entry (to calculate mileage).
+    fun gasPair() : List<Pair<Entry, Entry>> {
+        val gasList = gasFromLatest()
+        val prevList = gasList.drop(1)
+        val curList = gasList.dropLast(1)
+        return curList.zip(prevList)
+    }
+
+    private fun gasFromLatest() = fromLatest().filter { it.category == Category.GAS }
 
     val lastMileage : Pair<String, String>
         get() {

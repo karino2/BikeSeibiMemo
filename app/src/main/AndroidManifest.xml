@@ -13,6 +13,11 @@
         android:theme="@style/Theme.BikeSeibiMemo"
         tools:targetApi="31">
         <activity
+            android:name=".MileageActivity"
+            android:exported="false"
+            android:label="@string/title_activity_mileage"
+            android:theme="@style/Theme.BikeSeibiMemo" />
+        <activity
             android:name=".ListActivity"
             android:exported="false"
             android:label="@string/title_activity_list"
